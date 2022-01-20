@@ -1,0 +1,26 @@
+html {
+  font-family: sans-serif;
+}
+
+body {
+  width: 40%;
+  max-width: 800px;
+  min-width: 480px;
+  margin: 0 auto;
+}
+
+.container-circulo{
+	display: flex;
+}
+
+.circulo{
+	width: 100px;
+	height: 100px;
+	margin: 20px;
+	border-radius: 50%;
+	font-size: 20px;
+}
+.v{background-color: red;}
+.az{background-color: blue;}
+.am{background-color: yellow;}
+

@@ -8,17 +8,13 @@
 <body>
 	<h1>Adivinhe qual a bola certa</h1>
 
-	<p>Cada bola equivale a um numero (1,2,3) respectivamente. Qual é a bola certa?</p>
+	<p>Você consegue acertar qual a bola sorteada? Escolha abaixo!</p>
 
 	<div class="container-circulo">
-		<p class="circulo v">1</p>
-		<p class="circulo az">2</p>
-		<p class="circulo am">3</p>
+		<input type="button" class="circulo v" 	name="1" onclick="NumVer()" ></input>
+		<input type="button" class="circulo az" name="2" onclick="NumAz()"></input>
+		<input type="button" class="circulo am" name="3" onclick="NumAm()"></input>
 	</div>
-
-	<label for="campoNum">Escolha uma bola: </label>
-	<input type="text" id="campoNum" class="campoNum">
-	<input type="submit" class="enviarNum">
 
 	<div>
 		<p class="resultado"></p>
@@ -26,36 +22,58 @@
 </body>
 
 <script type="text/javascript">
-	//sorteia um numero aleatorio entre 1 e 3
+	//sorteia um numero aleatorio entre 1 e 3//
 	var resposta = Math.floor(Math.random() * 3 + 1);
 	console.log(resposta)
-
-	var campoNum = document.querySelector('.campoNum')
-	var enviarNum = document.querySelector('.enviarNum')
+	var botaoVermelho = document.querySelector('.circulo.v')
+	var botaoAzul = document.querySelector('.circulo.az')
+	var botaoAmarelo = document.querySelector('.circulo.am')
 	var resultado = document.querySelector('.resultado')
 	var botaoReinicio;
-
-	campoNum.focus()
 	
-	//confere se o numero digitado é igual ao sorteado//
-	function conferirNum(){
-		var numUsuario = Number(campoNum.value);
-		if (numUsuario === resposta){
+	function NumVer(){
+		var linhaVer = document.querySelector('.circulo.v')
+		var corVer = Number(linhaVer.name)
+		conferirNum(corVer)
+	}
+	function NumAz(){
+		var linhaAz = document.querySelector('.circulo.az')
+		var corAz = Number(linhaAz.name)
+		conferirNum(corAz)
+	}
+	function NumAm(){
+		var linhaAm = document.querySelector('.circulo.am')
+		var corAm = Number(linhaAm.name)
+		conferirNum(corAm)
+	}
+
+	function conferirNum(final){
+		//pega a informação da cor correta da resposta//
+		if (resposta === 1){
+			var corCirculoResposta = 'Vermelho';
+		} else if (resposta === 2) {
+			var corCirculoResposta = 'Azul';
+		} else {
+			var corCirculoResposta = 'Amarelo';
+		}
+
+		//compara o circulo que eu cliquei com a resposta certa e responde se acertei ou nao //
+		if (final === resposta){
 			resultado.textContent = 'Parabéns! Você acertou!';
 			resultado.style.backgroundColor = 'green';
 			fimDeJogo();
 		} else {
-			resultado.textContent = 'Você errou!!! Fim de jogo..... o circulo certo é o ' + resposta;
+			resultado.textContent = 'Você errou!!! O circulo certo é o ' + corCirculoResposta;
 			resultado.style.backgroundColor = 'red';
 			fimDeJogo();
 		}
 	}
-	enviarNum.addEventListener('click',conferirNum)
 
 	function fimDeJogo(){
-		//desabilita o campo de texto e o botao
-		campoNum.disabled = true;
-		enviarNum.disabled = true;
+		//desabilita os botoes//
+		botaoVermelho.disabled = true;
+		botaoAzul.disabled = true;
+		botaoAmarelo.disabled = true;
 
 		//cria botao de reiniciar o jogo//
 		botaoReinicio = document.createElement('button');
@@ -66,12 +84,13 @@
 	}
 
 	function reiniciarJogo(){
+		//remove o botao de reiniciar//
 		botaoReinicio.parentNode.removeChild(botaoReinicio);
-		//reativa a caixa de texto e o botao//
-		campoNum.disabled = false;
-    	enviarNum.disabled = false;
-    	campoNum.value = '';
-    	campoNum.focus();
+
+		//reativa os botoes//
+		botaoVermelho.disabled = false;
+		botaoAzul.disabled = false;
+		botaoAmarelo.disabled = false;
 
     	//limpa o resultado//
     	resultado.style.backgroundColor = 'white';
@@ -79,6 +98,7 @@
 
     	//cria outra resposta//
     	resposta = Math.floor(Math.random() *3 + 1);
+    	console.log(resposta)
 	}
 
 	</script>
